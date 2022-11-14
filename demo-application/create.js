@@ -4,7 +4,7 @@ const fs = require('fs')
 
 async function create () {
   try {
-    // Create a new file system based wallet for managing identities.
+    // Crea te a new file system based wallet for managing identities.
     const walletPath = path.join(process.cwd(), 'Org1Wallet')
     const wallet = await fabric_network_1.Wallets.newFileSystemWallet(walletPath)
     console.log(`Wallet path: ${walletPath}`)
