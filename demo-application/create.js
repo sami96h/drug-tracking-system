@@ -1,4 +1,4 @@
-const fabric_network_1 = require('fabric-network')
+const fabricNetwork = require('fabric-network')
 const path = require('path')
 const fs = require('fs')
 
@@ -6,12 +6,12 @@ async function create () {
   try {
     // Crea te a new file system based wallet for managing identities.
     const walletPath = path.join(process.cwd(), 'Org1Wallet')
-    const wallet = await fabric_network_1.Wallets.newFileSystemWallet(walletPath)
+    const wallet = await fabricNetwork.Wallets.newFileSystemWallet(walletPath)
     console.log(`Wallet path: ${walletPath}`)
     // Create a new gateway for connecting to our peer node.
-    const gateway = new fabric_network_1.Gateway()
+    const gateway = new fabricNetwork.Gateway()
     const connectionProfilePath = path.resolve(__dirname, 'connection.json')
-    const connectionProfile = JSON.parse(fs.readFileSync(connectionProfilePath, 'utf8')) // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+    const connectionProfile = JSON.parse(fs.readFileSync(connectionProfilePath, 'utf8'))
     const connectionOptions = { wallet, identity: 'Org1 Admin', discovery: { enabled: true, asLocalhost: true } }
     await gateway.connect(connectionProfile, connectionOptions)
     // Get the network (channel) our contract is deployed to.

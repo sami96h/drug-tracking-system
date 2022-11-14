@@ -1,74 +1,22 @@
 {
-    "name": "demo-application",
-    "version": "1.0.0",
-    "description": "Demo Application implemented in TypeScript",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "engines": {
-        "node": ">=8",
-        "npm": ">=5"
-    },
-    "scripts": {
-        "dev": "nodemon src/index.js"
-    },
-    "engineStrict": true,
-    "author": "Hyperledger",
-    "license": "Apache-2.0",
-    "dependencies": {
-        "compression": "^1.7.4",
-        "cookie-parser": "^1.4.6",
-        "cross-env": "^7.0.3",
-        "express": "^4.18.1",
-        "fabric-network": "~2.1.0",
-        "nodemon": "^2.0.20"
-    },
-    "devDependencies": {
-        "@types/chai": "^4.2.0",
-        "@types/mocha": "^5.2.7",
-        "@types/node": "^10.12.10",
-        "@types/sinon": "^7.0.13",
-        "@types/sinon-chai": "^3.2.3",
-        "chai": "^4.2.0",
-        "chai-as-promised": "^7.1.1",
-        "eslint": "^8.27.0",
-        "eslint-config-standard": "^17.0.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-n": "^15.5.1",
-        "eslint-plugin-promise": "^6.1.1",
-        "eslint-plugin-react": "^7.31.10",
-        "jsrsasign": "^8.0.13",
-        "minimist": "^1.2.5",
-        "mocha": "^6.2.0",
-        "nyc": "^14.1.1",
-        "sinon": "^7.4.1",
-        "sinon-chai": "^3.3.0",
-        "ts-node": "^8.3.0",
-        "tslint": "^5.19.0",
-        "typescript": "^3.6.2"
-    },
-    "nyc": {
-        "extension": [
-            ".ts",
-            ".tsx"
-        ],
-        "exclude": [
-            "coverage/**",
-            "dist/**"
-        ],
-        "reporter": [
-            "text-summary",
-            "html"
-        ],
-        "all": true,
-        "check-coverage": true,
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-    },
-    "resolutions": {
-        "minimist": "^1.2.5",
-        "mkdirp": "^1.0.4",
-        "jsrsasign": "^8.0.13"
-    }
+  "name": "demo-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockListener.js",
+  "dependencies": {
+    "canvas": "^2.10.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "express": "^4.18.1",
+    "fabric-network": "~2.1.0",
+    "nodemon": "^2.0.20",
+    "qrcode": "^1.5.1"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
