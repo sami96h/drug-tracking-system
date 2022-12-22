@@ -25,6 +25,12 @@ const MainLayout:FC = () => {
           >
             Add Drug
           </Button>
+
+          <Button
+            onClick={(() => navigate('/drugs/update'))}
+          >
+            Update Drug
+          </Button>
           <Button>QR Scan</Button>
           <Button>Drug List</Button>
         </div>
