@@ -1,0 +1,42 @@
+.form-add-drugs{
+  border: 1px rgb(231, 231, 231) solid;
+  width: 60%;
+  min-width: 320px;
+  margin: 20px auto;
+  padding: 10px 40px;
+  min-height: 85vh;
+}
+
+.form-add-drugs div.form-item-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.form-add-drugs label{
+  width: max-content;
+  display: block !important;
+  margin: 10px 0;
+}
+
+.form-add-drugs .form-item-container .form-item{
+  min-width: 300px;
+  width: calc(85%/2);
+  margin: 0px !important;
+}
+
+.text-area{
+  width: 95% !important;
+}
+
+
+
+.form-item-container .form-item input, .date-picker{
+  width: 100% !important;
+}
+
+/* .add-drugs-btn{
+  display: block;
+  margin: 20px auto;
+  width: calc(80%/2);
+} */
