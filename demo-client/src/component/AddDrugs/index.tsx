@@ -8,21 +8,25 @@ import dayjs from 'dayjs'
 
 import { validationSchema } from '../../validation/AddDrugs'
 import './style.css'
+import Uploader from '../UploadImage'
 
 const { TextArea } = Input
 
 const AddDrugs:FC = () => {
   const [productionDate, setProductionDate] = useState(dayjs().format('MM-DD-YYYY'))
   const [expiryDate, setExpiryDate] = useState(dayjs().format('MM-DD-YYYY'))
+  const [imageUrl, setImageUrl] = useState<string>('')
+  console.log(' in add drug form', imageUrl)
 
   return (
     <Formik
       initialValues={{
         medicineName: '',
-        price: 0,
-        amount: 0,
+        price: '',
+        amount: '',
         companyName: '',
         description: '',
+        image: imageUrl,
         productionDate,
         expiryDate,
       }}
@@ -33,7 +37,7 @@ const AddDrugs:FC = () => {
       }}
     >
       {({
-        values, errors, touched, handleChange, handleBlur, isSubmitting,
+        values, errors, touched, handleChange, handleBlur, isSubmitting, setFieldValue,
       }) => (
         <Form className="form-add-drugs">
           <Divider
@@ -172,16 +176,31 @@ const AddDrugs:FC = () => {
               />
 
             </AntForm.Item>
+
+            <AntForm.Item
+              validateStatus={
+              errors.image && touched.image ? 'error' : 'success'
+            }
+              help={errors.image}
+              className="form-item"
+            >
+              <Uploader
+                setImageUrl={setImageUrl}
+                setFieldValue={setFieldValue}
+              />
+            </AntForm.Item>
+
+            <Button
+              // className="add-drugs-btn"
+              className="form-item"
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </Button>
           </div>
 
-          <Button
-            className="add-drugs-btn"
-            type="primary"
-            htmlType="submit"
-            disabled={isSubmitting}
-          >
-            Submit
-          </Button>
         </Form>
       )}
     </Formik>
