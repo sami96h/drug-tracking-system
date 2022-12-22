@@ -3,10 +3,12 @@ import {
   Button, Layout, theme,
 } from 'antd'
 import { Header, Content } from 'antd/es/layout/layout'
-import { Outlet } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import './style.css'
 
 const MainLayout:FC = () => {
+  const navigate = useNavigate()
+
   const {
     token: { colorBgContainer },
   } = theme.useToken()
@@ -19,6 +21,7 @@ const MainLayout:FC = () => {
           <Button
             type="primary"
             style={{ color: 'rgb(242, 242, 242)' }}
+            onClick={(() => navigate('/drugs/new'))}
           >
             Add Drug
           </Button>
