@@ -7,8 +7,9 @@ import {
 import dayjs from 'dayjs'
 
 import { validationSchema } from '../../validation/AddDrugs'
-
 import './style.css'
+
+const { TextArea } = Input
 
 const AddDrugs:FC = () => {
   const [productionDate, setProductionDate] = useState(dayjs().format('MM-DD-YYYY'))
@@ -17,7 +18,13 @@ const AddDrugs:FC = () => {
   return (
     <Formik
       initialValues={{
-        medicineName: '', price: 0, amount: 0, companyName: '', productionDate, expiryDate,
+        medicineName: '',
+        price: 0,
+        amount: 0,
+        companyName: '',
+        description: '',
+        productionDate,
+        expiryDate,
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -147,6 +154,24 @@ const AddDrugs:FC = () => {
               />
             </AntForm.Item>
 
+            <AntForm.Item
+              validateStatus={
+              errors.description && touched.description ? 'error' : 'success'
+            }
+              help={errors.description}
+              className="text-area"
+            >
+              <label>Description</label>
+              <TextArea
+                rows={4}
+                name="description"
+                placeholder="Description"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.description}
+              />
+
+            </AntForm.Item>
           </div>
 
           <Button

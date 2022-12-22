@@ -13,6 +13,9 @@ export const validationSchema = yup.object({
   amount: yup.number()
     .required('amount is required'),
 
+  description: yup.string()
+    .required('description is required'),
+
   productionDate: yup.date()
     .required('production date is required'),
 
