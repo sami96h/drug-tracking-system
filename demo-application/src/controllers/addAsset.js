@@ -1,20 +1,18 @@
-
-
-
 const addAsset = async (req, res) => {
-    console.log(req.app.locals['Org1MSP'].assetContract.contractListeners)
+   
+    const submitQueue = req.app.locals['jobq']
+    const transactionArgs = req.body
+   
     try {
-        const { id } = req.body
-        const contract = req.app.locals['Org1MSP'].assetContract
-        const transaction = contract.createTransaction('createMyAsset');
-        const payload = await transaction.submit(id, 'loool');
+        const job = await submitQueue.add('createBatch', {transactionArgs,
+        mspId:req.user
+        })
 
-        res.json({ data: 'lool' })
-
+        res.json({ msg: 'success', jobId: job.id })
     }
     catch (err) {
-        res.json({ msg: 'holy shiy' })
+        res.json({ msg: err })
     }
-
 }
+
 module.exports = addAsset
