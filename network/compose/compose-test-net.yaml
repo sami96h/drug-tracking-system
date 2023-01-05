@@ -63,7 +63,6 @@ services:
     networks:
       - test
 
-
   orderer1.example.com:
     container_name: orderer1.example.com
     image: hyperledger/fabric-orderer:latest
@@ -147,7 +146,6 @@ services:
       - 4444:8444
     networks:
       - test
-
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
@@ -265,8 +263,6 @@ services:
       - 9446:9444
     networks:
       - test
-
-
 
   peer0.org2.example.com:
     container_name: peer0.org2.example.com

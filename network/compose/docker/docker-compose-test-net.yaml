@@ -5,6 +5,7 @@
 
 version: '3.7'
 services:
+
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
     image: hyperledger/fabric-peer:latest
@@ -17,7 +18,6 @@ services:
     volumes:
       - ./docker/peercfg:/etc/hyperledger/peercfg
       - ${DOCKER_SOCK}:/host/var/run/docker.sock
-
 
   peer1.org1.example.com:
     container_name: peer1.org1.example.com
@@ -32,7 +32,6 @@ services:
       - ./docker/peercfg:/etc/hyperledger/peercfg
       - ${DOCKER_SOCK}:/host/var/run/docker.sock
 
-
   peer2.org1.example.com:
     container_name: peer2.org1.example.com
     image: hyperledger/fabric-peer:latest
@@ -45,8 +44,6 @@ services:
     volumes:
       - ./docker/peercfg:/etc/hyperledger/peercfg
       - ${DOCKER_SOCK}:/host/var/run/docker.sock
-
-
 
   peer0.org2.example.com:
     container_name: peer0.org2.example.com

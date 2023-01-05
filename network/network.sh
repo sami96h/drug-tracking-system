@@ -132,10 +132,14 @@ function createOrgs() {
 
   createOrderer
 
+
+  ## --- for IBM extention use -- ##
+
   infoln "Generating connection profile"
   # ./organizations/ccp-generate.sh
   ./makeConnection.sh
-
+  
+  # create orgs wallets
   node makeWallet.js
 }
 
@@ -192,9 +196,8 @@ function createChannel() {
 
 ## Call the script to deploy a chaincode to the channel
 function deployCC() {
-  # scripts/deployCC.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
 
-  scripts/deployCC.sh mychannel demo-contract ../demo-contract node 1.0 1 $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
+  scripts/deployCC.sh mychannel demo-contract ../demo-contract node 1.0 1 $CLI_DELAY $MAX_RETRY $VERBOSE
 
   if [ $? -ne 0 ]; then
     fatalln "Deploying chaincode failed"
@@ -230,151 +233,37 @@ function networkDown() {
   # remove channel script artifacts
   docker run --rm -v "$(pwd):/data" busybox sh -c 'cd /data && rm -rf channel-artifacts log.txt *.tar.gz'
 
+  # remove orgs wallets
+
   rm -r ../org1wallet
   rm -r ../org2wallet
   rm -r ../ordererwallet
+
+  # remove profile for vscode extensions (IBM)
+
   rm networkProfile.json
 }
 
-# Using crpto vs CA. default is cryptogen
+
 # timeout duration - the duration the CLI should wait for a response from
 # another container before giving up
 MAX_RETRY=5
 # default for delay between commيs
 CLI_DELAY=3
-# channel name defaults to "mychannel"
-# chaincode name defaults to "NA"
-
-# chaincode path defaults to "NA"
-
-# endorsement policy defaults to "NA". This would allow chaincodes to use the majority default policy.
-CC_END_POLICY="NA"
-# collection configuration defaults to "NA"
-CC_COLL_CONFIG="NA"
-# chaincode init function defaults to "NA"
-CC_INIT_FCN="NA"
-# use this as the default docker-compose yaml definition
-# docker-compose.yaml file if you are using couchdb
-# certificate authorities compose file
-
-#
-# chaincode language defaults to "NA"
-CC_SRC_LANGUAGE="NA"
-# default to running the docker commيs for the CCAAS
-CCAAS_DOCKER_RUN=true
-# Chaincode version
-CC_VERSION="1.0"
-# Chaincode definition sequence
-CC_SEQUENCE=1
-# default database
 
 # Get docker sock path from environment variable
 SOCK="${DOCKER_HOST:-/var/run/docker.sock}"
 DOCKER_SOCK="${SOCK##unix://}"
 
-# Parse commيline args
 
-# Parse mode
-if [[ $# -lt 1 ]]; then
-  printHelp
-  exit 0
-else
-  MODE=$1
-  shift
-fi
 
-if [[ $# -ge 1 ]]; then
-  key="$1"
-  if [[ "$key" == "createChannel" ]]; then
-    export MODE="createChannel"
-    shift
-  fi
-fi
-
-# parse flags
-
-# while [[ $# -ge 1 ]] ; do
-#   key="$1"
-#   case $key in
-#   -h )
-#     printHelp $MODE
-#     exit 0
-#     ;;
-#   -c )
-#     CHANNEL_NAME="$2"
-#     shift
-#     ;;
-#   -ca )
-#     CRYPTO="Certificate Authorities"
-#     ;;
-#   -r )
-#     MAX_RETRY="$2"
-#     shift
-#     ;;
-#   -d )
-#     CLI_DELAY="$2"
-#     shift
-#     ;;
-#   -s )
-#     DATABASE="$2"
-#     shift
-#     ;;
-#   -ccl )
-#     CC_SRC_LANGUAGE="$2"
-#     shift
-#     ;;
-#   -ccn )
-#     CC_NAME="$2"
-#     shift
-#     ;;
-#   -ccv )
-#     CC_VERSION="$2"
-#     shift
-#     ;;
-#   -ccs )
-#     CC_SEQUENCE="$2"
-#     shift
-#     ;;
-#   -ccp )
-#     CC_SRC_PATH="$2"
-#     shift
-#     ;;
-#   -ccep )
-#     CC_END_POLICY="$2"
-#     shift
-#     ;;
-#   -cccg )
-#     CC_COLL_CONFIG="$2"
-#     shift
-#     ;;
-#   -cci )
-#     CC_INIT_FCN="$2"
-#     shift
-#     ;;
-#   -ccaasdocker )
-#     CCAAS_DOCKER_RUN="$2"
-#     shift
-#     ;;
-#   -verbose )
-#     VERBOSE=true
-#     ;;
-#   * )
-#     errorln "Unknown flag: $key"
-#     printHelp
-#     exit 1
-#     ;;
-#   esac
-#   shift
-# done
-
+MODE=$1
+  
 if [ "$MODE" == "up" ]; then
   infoln "Starting nodes with CLI timeout of '${MAX_RETRY}' tries CLI delay of '${CLI_DELAY}' seconds using database '${DATABASE}'"
   networkUp
-elif [ "$MODE" == "createChannel" ]; then
   infoln "Creating channel 'mychannel'."
-  infoln "If network is not up, starting nodes with CLI timeout of '${MAX_RETRY}' tries CLI delay of '${CLI_DELAY}' seconds using database '${DATABASE}"
   createChannel
-elif [ "$MODE" == "deployCC" ]; then
   infoln "deploying chaincode on channel 'mychannel'"
   deployCC
 elif [ "$MODE" == "down" ]; then
