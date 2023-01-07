@@ -5,11 +5,12 @@
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
+const SmartContractError = require('./SmartContractError')
 
 class MyAssetContract extends Contract {
 
 
-    async getTx(ctx, myAssetId) {
+    async getBatchHistory(ctx, myAssetId) {
 
 
         let iterator = await ctx.stub.getHistoryForKey(myAssetId);
@@ -36,6 +37,7 @@ class MyAssetContract extends Contract {
         return (!!buffer && buffer.length > 0);
     }
 
+
     async createBatch(ctx, batchId,
         medicineName,
         description,
@@ -44,10 +46,10 @@ class MyAssetContract extends Contract {
         expiryDate,
         companyName,
         amount) {
-            
+
         const exists = await this.batchExist(ctx, batchId);
         if (exists) {
-            throw new Error(`${batchId} already exists`);
+            throw new SmartContractError(`${batchId} already exists`, 10);
         }
         let mspid = ctx.clientIdentity.getMSPID();
         const boxes = []
@@ -72,24 +74,27 @@ class MyAssetContract extends Contract {
 
         };
         await ctx.stub.putState(batchId, Buffer.from(JSON.stringify(batch)));
-        // const eventPayload = Buffer.from(`Created asset ${batchId}`);
-        // ctx.stub.setEvent('myEvent', eventPayload);
+        const eventPayload = Buffer.from(JSON.stringify(batch));
 
+        ctx.stub.setEvent('myEvent', eventPayload);
+        return `${batchId} added successfully`
     }
 
     async getBatch(ctx, batchId) {
         const exists = await this.batchExist(ctx, batchId);
         if (!exists) {
-            throw new Error(`${batchId} does not exist`);
+            throw new SmartContractError(`${batchId} does not exist`, 20);
         }
+
         const buffer = await ctx.stub.getState(batchId);
         const batch = JSON.parse(buffer.toString());
         return batch;
     }
+
     async getBatchBoxes(ctx, batchId) {
         const exists = await this.batchExist(ctx, batchId);
         if (!exists) {
-            throw new Error(`${batchId} does not exist`);
+            throw new SmartContractError(`${batchId} does not exist`, 20);
         }
         const buffer = await ctx.stub.getState(batchId);
         const batch = JSON.parse(buffer.toString());
@@ -122,7 +127,7 @@ class MyAssetContract extends Contract {
 
         const exists = await this.batchExist(ctx, batchId);
         if (!exists) {
-            throw new Error(`${batchId} does not exist`);
+            throw new SmartContractError(`${batchId} does not exist`, 20);
         }
         const buffer = await ctx.stub.getState(batchId);
         const batch = JSON.parse(buffer.toString());
@@ -136,31 +141,52 @@ class MyAssetContract extends Contract {
         return box;
     }
 
-    async updateBatch(ctx, batchId, stage, data) {
-        const exists = await this.batchExist(ctx, batchId);
-        if (!exists) {
-            throw new Error(`${batchId} does not exist`);
+    sellBox(ctx, boxId, batch) {
+
+
+        let boxes = [...batch.boxes]
+        for (let box of boxes) {
+            if (box.id === boxId) {
+                box.sold = true
+            }
+
         }
-        const batch = await this.getBatch(ctx, batchId)
+
+        return boxes;
+
+
+    }
+
+    async updateBatch(ctx, batchId, oldData, stage, data) {
+
+        oldData = JSON.parse(oldData)
+        data = JSON.parse(data)
+        let newBatch
 
         switch (stage) {
-            case 'distributer': batch.distributerData = data;
+            case 'distributer': newBatch = { ...oldData, stage: 'distributer', distributerData: data };
                 break;
-            case 'retailer': batch.retailerData = data;
+            case 'retailer':
+                const newBoxes = this.sellBox(ctx, data.boxId, oldData)
+                newBatch = { ...oldData, stage, boxes: newBoxes };
                 break;
+            default: newBatch = { ...oldData, data: 'none' };
         }
 
-        const buffer = Buffer.from(JSON.stringify(batch));
+        const buffer = Buffer.from(JSON.stringify(newBatch));
         await ctx.stub.putState(batchId, buffer);
+        return `${batchId} updated successfully`
     }
 
-    async deleteBach(ctx, batchId) {
+    async deleteBatch(ctx, batchId) {
         const exists = await this.batchExist(ctx, batchId);
         if (!exists) {
-            throw new Error(`${batchId} does not exist`);
+            throw new SmartContractError(`${batchId} does not exist`, 20);
         }
         await ctx.stub.deleteState(batchId);
+        return `${batchId} deleted successfully`
     }
+
 
 }
 
