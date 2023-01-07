@@ -1,8 +1,8 @@
-const getBox =require('../controllers/getBox')
 const { Router } =require('express')
+const BoxesController = require('../controllers/BoxesController')
 
 const router = Router();
 
-router.get('/:Id', getBox);
-
+router.get('/:Id', BoxesController.getBox);
+router.post('/',BoxesController.updateBox)
 module.exports= router;
