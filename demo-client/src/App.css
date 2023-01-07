@@ -11,3 +11,6 @@
     -webkit-background-clip: text;
     /* -webkit-text-fill-color: #ececec; */
   }
+  body{
+    background-color: #f5f5f5;
+  }
