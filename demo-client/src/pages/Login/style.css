@@ -1,0 +1,39 @@
+.login-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.login-container .login-form{
+  width: 30%;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.login-form .login-msg {
+  margin: 30px 0;
+}
+
+.login-form .login-msg h2{
+  margin: 8px auto;
+  text-align: center;
+  font-weight: 600;
+  font-size: 25px;
+
+}
+.login-form .login-msg p{
+  text-align: center;
+  font-size: 16px;
+  color: #2a2a2ab9;
+}
+
+
+
+
+
+.login-container img{
+  width: 55%;
+  height: 100vh;
+}
+

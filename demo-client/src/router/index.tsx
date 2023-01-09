@@ -6,10 +6,17 @@ import Introduction from '../component/introduction'
 import QrCodes from '../component/QrCodes'
 import QrScanner from '../component/QrScanner'
 import TransactionsList from '../component/TransactionsList'
+import BatchesList from '../component/BatchesList'
+import BatchesDetails from '../component/BatchesDetails'
 import UpdateDrugs from '../component/UpdateDrugs'
 import Home from '../pages/Home'
+import Login from '../pages/Login'
 
 export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <Login />,
+  },
   {
     path: '/',
     element: <Home />,
@@ -35,10 +42,17 @@ export const router = createBrowserRouter([
         element: <TransactionsList />,
       },
       {
+        path: '/batches',
+        element: <BatchesList />,
+      },
+      {
+        path: '/batches/:id',
+        element: <BatchesDetails />,
+      },
+      {
         path: 'qr-codes',
         element: <QrCodes />,
       },
-
     ],
   },
 ])
