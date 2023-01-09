@@ -4,6 +4,14 @@ const ORG1 = 'Org1'
 
 const JOB_QUEUE_NAME = 'submit'
 
+
+const secretKey = env
+.get('SECRETKEY')
+.required()
+.default('too secret')
+.asString()
+
+
 /**
  * Log level for the REST server
  */
@@ -20,6 +28,13 @@ const port = env
   .default('3000')
   .example('3000')
   .asPortNumber()
+
+const org1ApiKey = env
+  .get('ORG1_APIKEY')
+  .required()
+  .example('123')
+  .asString();
+
 
 /**
  * The type of backoff to use for retrying failed submit jobs
@@ -232,8 +247,9 @@ module.exports = {
   submitJobConcurrency, submitJobAttempts, submitJobBackoffDelay
   ,
   submitJobBackoffType, port, logLevel, JOB_QUEUE_NAME,
-  ORG1
+  ORG1,
+  org1ApiKey
 
-
+,secretKey
 
 }

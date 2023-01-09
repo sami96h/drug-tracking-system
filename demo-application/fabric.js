@@ -5,10 +5,8 @@ const {
   Wallets,
 } = require('fabric-network')
 const FabricCAServices = require('fabric-ca-client');
-
 const protos = require('fabric-protos')
 const config = require('./config')
-const { handleError } = require('./errors')
 
 
 class Fabric {
@@ -156,7 +154,8 @@ class Fabric {
 
       return payload
     } catch (err) {
-      throw handleError(transactionId, err)
+      //TO DO
+      console.log(err)
     }
   }
 

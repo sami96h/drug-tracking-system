@@ -4,13 +4,18 @@ const { join } = require('path')
 const cookieParser = require('cookie-parser')
 const compression = require('compression')
 const express = require('express')
+const cors =require('cors')
+const { authenticateApiKey, fabricAPIKeyStrategy } =require('./middleWares/apiKeyAuth')
+const passport =require('passport')
+
+  
+
 // my modules
-const { body, validationResult }=require ('express-validator');
-const { Contract, Transaction } =require('fabric-network')
+
 const router =require ('./routers');
 const app = express()
 
-app.set('port', process.env.PORT || 3001)
+app.set('port', 5000)
 
 app.use(cookieParser())
 app.use(express.json())
@@ -19,8 +24,22 @@ app.use(compression())
 app.use(express.static(join(__dirname, '..', 'public')))
 
 
+passport.use(fabricAPIKeyStrategy);
+//initialize passport js
+app.use(passport.initialize());
 
-app.use(router)
+
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true // access-control-allow-credentials:true
+  })
+);
+
+// app.get('/test',create)
+// app.use(router)
+app.use('/api/v1/',authenticateApiKey ,router);
 
 app.use((req, res, next) => {
   res.status(404).json({ msg: 'mas' })

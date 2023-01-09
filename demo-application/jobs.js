@@ -1,8 +1,6 @@
 const { Worker, Queue } = require('bullmq')
 const config = require('./config')
-const { submitTransaction } = require('./fabric')
-const logger = require('./logger')
-const Transaction = require('./db/models/transactions')
+const Fabric = require('./fabric')
 const updateTransaction = require('./db/queries/updateTransaction')
 const addTransaction = require('./db/queries/addTransaction')
 
@@ -43,11 +41,10 @@ module.exports.initJobQueueWorker = (app) => {
     );
 
     worker.on('failed', (job) => {
-        logger.warn({ job }, 'Job failed');
+        console.log({ job }, 'Job failed');
     });
 
-    // Important: need to handle this error otherwise worker may stop
-    // processing jobs
+    // TODO
     worker.on('error', (err) => {
 
         logger.error({ err }, 'Worker error');
@@ -59,6 +56,7 @@ module.exports.initJobQueueWorker = (app) => {
         if (job.returnvalue.err) {
             await updateTransaction(job.returnvalue.transactionId, { error: job.returnvalue.err, status: 'invalid' })
         } else {
+            console.log( job.returnvalue)
             await updateTransaction(job.returnvalue.transactionId, { payload: job.returnvalue.payload, status: 'valid' })
 
         }
@@ -82,7 +80,8 @@ const processSubmitTransactionJob = async (app, job) => {
 
         userName: transaction.identityContext.user._name
     })
-    const res = await submitTransaction(app, transaction, job)
+    const fabric = new Fabric(app)
+    const res = await fabric.submitTransaction(transaction, job)
     return res
 
 
