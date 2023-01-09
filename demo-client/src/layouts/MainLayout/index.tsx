@@ -31,8 +31,23 @@ const MainLayout:FC = () => {
           >
             Update Drug
           </Button>
-          <Button>QR Scan</Button>
-          <Button>Drug List</Button>
+          <Button
+            onClick={(() => navigate('/qr-scanner'))}
+
+          >
+            QR Scan
+
+          </Button>
+          <Button
+            onClick={(() => navigate('/batches'))}
+          >
+            Batches List
+          </Button>
+          <Button
+            onClick={(() => navigate('/transactions'))}
+          >
+            Transactions List
+          </Button>
         </div>
 
       </Header>

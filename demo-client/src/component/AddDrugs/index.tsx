@@ -191,7 +191,6 @@ const AddDrugs:FC = () => {
             </AntForm.Item>
 
             <Button
-              // className="add-drugs-btn"
               className="form-item"
               type="primary"
               htmlType="submit"
