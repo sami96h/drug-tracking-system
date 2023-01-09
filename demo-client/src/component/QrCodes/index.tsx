@@ -28,6 +28,10 @@ const QrCodes:FC = () => {
     }
   }
 
+  const handlePrintAll = ():void => {
+    setSelectToPrint(data)
+  }
+
   return (
     <div style={{ marginTop: 30 }}>
       <div style={{
@@ -39,9 +43,26 @@ const QrCodes:FC = () => {
       }}
       >
         <h2>QR Codes</h2>
-        <Button type="primary" onClick={showModal}>
-          Open Modal
-        </Button>
+        <div>
+
+          <Button
+            onClick={showModal}
+            style={{ margin: '0 10px ' }}
+          >
+            Print Selected
+          </Button>
+
+          <Button
+            type="primary"
+            onClick={() => {
+              handlePrintAll()
+              showModal()
+            }}
+          >
+            Print All
+          </Button>
+
+        </div>
       </div>
       <div className="qr-codes-container">
 
@@ -61,6 +82,7 @@ const QrCodes:FC = () => {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         selectToPrint={selectToPrint}
+        setSelectToPrint={setSelectToPrint}
       />
     </div>
   )

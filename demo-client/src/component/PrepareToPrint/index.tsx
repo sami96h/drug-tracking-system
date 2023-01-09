@@ -6,10 +6,13 @@ import { useReactToPrint } from 'react-to-print'
 interface IPrepareToPrint{
   isModalOpen:boolean;
   setIsModalOpen:Function;
+  setSelectToPrint:Function;
   selectToPrint:string[];
 }
 
-const PrepareToPrint:FC<IPrepareToPrint> = ({ isModalOpen, setIsModalOpen, selectToPrint }) => {
+const PrepareToPrint:FC<IPrepareToPrint> = ({
+  isModalOpen, setIsModalOpen, selectToPrint, setSelectToPrint,
+}) => {
   const printRef = useRef<any>()
 
   const handlePrint = useReactToPrint({
@@ -17,6 +20,7 @@ const PrepareToPrint:FC<IPrepareToPrint> = ({ isModalOpen, setIsModalOpen, selec
   })
 
   const handleCancel = ():void => {
+    setSelectToPrint([])
     setIsModalOpen(false)
   }
 
