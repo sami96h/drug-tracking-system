@@ -4,8 +4,8 @@ import {
   Button, Input, Form as AntForm,
 } from 'antd'
 import { Form, Formik } from 'formik'
-import loginCover from '../../assets/image/login-cover.png'
-import { validationSchema } from '../../validation/login'
+import loginCover from '../../../assets/image/login-cover.png'
+import { validationSchema } from '../../../validation/login'
 import './style.css'
 
 const Login:FC = () => {
@@ -15,6 +15,7 @@ const Login:FC = () => {
       <Formik
         initialValues={{
           username: '',
+          password: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
@@ -48,6 +49,25 @@ const Login:FC = () => {
                   onBlur={handleBlur}
                   value={values.username}
                   className="form-item"
+                />
+              </AntForm.Item>
+
+              <AntForm.Item
+                validateStatus={
+              errors.password && touched.password ? 'error' : 'success'
+            }
+                help={errors.password}
+                className="form-item"
+              >
+                <label>Password</label>
+                <Input
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  className="form-item"
+                  type="password"
                 />
               </AntForm.Item>
 
