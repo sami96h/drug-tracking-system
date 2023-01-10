@@ -13,7 +13,7 @@ import {
   UserAddOutlined,
 } from '@ant-design/icons'
 
-import { useNavigate, Outlet } from 'react-router-dom'
+import { useNavigate, Outlet, Link } from 'react-router-dom'
 import type { MenuProps } from 'antd'
 
 import './style.css'
@@ -48,16 +48,8 @@ const MainLayout:FC = () => {
 
   const items: MenuItem[] = [
     getItem(
-      'home',
-      '1',
-      <HomeOutlined />,
-      () => {
-        navigate('/')
-      },
-    ),
-    getItem(
       'Add Drugs',
-      '2',
+      '1',
       <PlusOutlined />,
       () => {
         navigate('/drugs/new')
@@ -66,7 +58,7 @@ const MainLayout:FC = () => {
 
     getItem(
       'Update Drugs',
-      '3',
+      '2',
       <FormOutlined />,
       () => {
         navigate('/drugs/update')
@@ -74,8 +66,8 @@ const MainLayout:FC = () => {
     ),
 
     getItem(
-      ' QR Scan',
-      '4',
+      'QR Scan',
+      '3',
       <QrcodeOutlined />,
       () => {
         navigate('/qr-scanner')
@@ -84,7 +76,7 @@ const MainLayout:FC = () => {
 
     getItem(
       'Batches List',
-      '5',
+      '4',
       <TableOutlined />,
       () => {
         navigate('/batches')
@@ -92,7 +84,7 @@ const MainLayout:FC = () => {
     ),
     getItem(
       'Transactions List',
-      '6',
+      '5',
       <TableOutlined />,
       () => {
         navigate('/transactions')
@@ -101,7 +93,7 @@ const MainLayout:FC = () => {
 
     getItem(
       'Add new User',
-      '7',
+      '6',
       <UserAddOutlined />,
       () => {
         navigate('/register')
@@ -110,7 +102,7 @@ const MainLayout:FC = () => {
 
     getItem(
       'Logout',
-      '8',
+      '7',
       <LogoutOutlined />,
       () => {
         console.log('Logout')
@@ -133,11 +125,12 @@ const MainLayout:FC = () => {
           bottom: 0,
         }}
       >
-        <div style={{
-          margin: 16, background: 'rgba(255, 255, 255, 0.2)', padding: 10, color: '#fff',
-        }}
+        <div
+          style={{
+            margin: 16, background: 'rgba(255, 255, 255, 0.2)', padding: 10, color: '#fff',
+          }}
         >
-          samico
+          <Link to="/" replace>samico</Link>
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
       </Sider>
