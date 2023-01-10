@@ -24,12 +24,12 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
+    element: <Introduction />,
+  },
+  {
+    path: '/',
     element: <Home />,
     children: [
-      {
-        path: '/',
-        element: <Introduction />,
-      },
       {
         path: '/drugs/new',
         element: <AddDrugs />,
