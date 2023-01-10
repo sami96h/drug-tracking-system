@@ -21,6 +21,7 @@ const AddDrugs:FC = () => {
   return (
     <Formik
       initialValues={{
+        batchId: '',
         medicineName: '',
         price: '',
         amount: '',
@@ -51,6 +52,24 @@ const AddDrugs:FC = () => {
             Add Drug
           </Divider>
           <div className="form-item-container">
+
+            <AntForm.Item
+              validateStatus={
+              errors.batchId && touched.batchId ? 'error' : 'success'
+            }
+              help={errors.batchId}
+              className="form-item"
+            >
+              <label>Batch Id</label>
+              <Input
+                name="batchId"
+                placeholder="Batch Id"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.batchId}
+                className="form-item"
+              />
+            </AntForm.Item>
 
             <AntForm.Item
               validateStatus={

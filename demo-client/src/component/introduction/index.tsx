@@ -21,7 +21,7 @@ const Introduction:FC = () => {
         <Button
           type="primary"
           style={{ color: 'rgb(242, 242, 242)', marginTop: '50px' }}
-          onClick={() => navigate('/drugs/add')}
+          onClick={() => navigate('/drugs/new')}
         >
           Get Started
         </Button>
