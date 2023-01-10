@@ -5,6 +5,7 @@ import {
 } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid' //
 
 import './style.css'
 
@@ -41,7 +42,10 @@ const TransactionsList:FC = () => {
       key: 'status',
       dataIndex: 'Status',
       render: (_, { status }) => (
-        <Tag color="red" key={status}>
+        <Tag
+          color="red"
+          key={uuidv4()}
+        >
           {status.toUpperCase()}
         </Tag>
       ),
@@ -54,7 +58,12 @@ const TransactionsList:FC = () => {
         if (action === 'invalid'
         ) {
           return (
-            <Popover content={action} title="Title" trigger="hover">
+            <Popover
+              key={uuidv4()}
+              content={action}
+              title="Title"
+              trigger="hover"
+            >
               <Button>Hover me</Button>
             </Popover>
           )
@@ -62,6 +71,7 @@ const TransactionsList:FC = () => {
         return (
           <Button
             onClick={() => navigate('/qr-codes')}
+            key={uuidv4()}
           >
             Generate QR
           </Button>

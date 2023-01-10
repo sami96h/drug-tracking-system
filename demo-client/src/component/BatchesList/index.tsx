@@ -5,6 +5,7 @@ import {
 } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid' //
 
 import './style.css'
 
@@ -59,7 +60,11 @@ const BatchesList:FC = () => {
       title: 'Id',
       dataIndex: 'id',
       key: 'Id',
-      render: (Id) => <a>{Id}</a>,
+      render: (Id) => (
+        <a key={uuidv4()}>
+          {Id}
+        </a>
+      ),
     },
     {
       title: 'Medicine Name',
@@ -73,8 +78,8 @@ const BatchesList:FC = () => {
     },
     {
       title: 'Number of Boxes',
-      dataIndex: 'companyName',
-      key: 'companyName',
+      dataIndex: 'numberOfBoxes',
+      key: 'numberOfBoxes',
     },
 
     {
@@ -88,7 +93,10 @@ const BatchesList:FC = () => {
       key: 'stage',
       dataIndex: 'stage',
       render: (_, { stage }) => (
-        <Tag color="red" key={stage}>
+        <Tag
+          color="red"
+          key={uuidv4()}
+        >
           {stage.toUpperCase()}
         </Tag>
       ),
@@ -110,6 +118,7 @@ const BatchesList:FC = () => {
       render: (id) => (
         <Button
           onClick={() => navigate(`/batches/${id}`)}
+          key={uuidv4()}
         >
           Show Details
         </Button>

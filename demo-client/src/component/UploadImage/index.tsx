@@ -31,6 +31,7 @@ const Uploader:FC<any> = ({ setImageUrl, setFieldValue }) => {
   return (
     <div>
       <Upload
+        maxCount={1}
         name="image"
         listType="picture"
         beforeUpload={beforeUpload}

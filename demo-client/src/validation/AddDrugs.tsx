@@ -1,6 +1,9 @@
 import * as yup from 'yup'
 
 export const validationSchema = yup.object({
+  batchId: yup.string()
+    .required('batch id is required'),
+
   medicineName: yup.string()
     .required('medicine name is required'),
 
