@@ -12,6 +12,7 @@ import UpdateDrugs from '../component/UpdateDrugs'
 import Home from '../pages/Home'
 import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
+import NotFound from '../pages/404'
 
 export const router = createBrowserRouter([
   {
@@ -59,5 +60,9 @@ export const router = createBrowserRouter([
         element: <QrCodes />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ])

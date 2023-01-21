@@ -6,7 +6,6 @@ import {
 import {
   FormOutlined,
   LogoutOutlined,
-  HomeOutlined,
   PlusOutlined,
   QrcodeOutlined,
   TableOutlined,
