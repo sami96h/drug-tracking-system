@@ -1,0 +1,19 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px !important;
+}
+.header div{
+  width: max-content ;
+}
+
+.header div button{
+  margin:0 10px ;
+}
+
+.logo{
+display: flex;
+justify-content: center;
+align-items: center;
+}
