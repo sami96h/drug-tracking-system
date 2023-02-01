@@ -1,0 +1,16 @@
+.add-batch-container{
+  border: 1px #EEE solid;
+  width: 100%;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.add-batch-input{
+  width: calc(90%/2);
+  min-width: 250px;
+  max-width: 340px;
+}

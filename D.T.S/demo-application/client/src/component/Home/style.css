@@ -1,0 +1,51 @@
+.introduction {
+    height: 100vh;
+    
+    color: #ececec !important;
+    background-color: #111827 !important;
+
+}
+
+.get-started {
+    width: 90%;
+    height: 100vh;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+   
+    padding :100px 0;
+}
+
+.get-started .first {
+    width: 55%;
+    align-self: flex-end;
+    
+}
+
+.brief-container {
+    width: 90%;
+   
+}
+
+.brief-container p {
+    color: #E5E7EB;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.brief-container button {
+    margin: 20px 0;
+    padding: 5 15px;
+}
+
+.image-container {
+    width: 15%;
+    min-width: 500px;
+}
+
+.image-container img {
+    object-fit: fill;
+    width: 500px;
+    display: block;
+    margin: 0px auto;
+}

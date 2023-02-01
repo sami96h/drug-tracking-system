@@ -1,0 +1,16 @@
+.qr-scan-container{
+    width: 85%;
+    margin: 5px auto;
+    min-height: 80vh;
+  }
+  
+  .qr-scan-container h3{
+    font-weight:600;
+    font-size: 19px;
+    color: #262626;
+  }
+  
+  .btn-container{
+    display: flex;
+    justify-content: space-between;
+  }
