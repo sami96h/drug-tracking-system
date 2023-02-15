@@ -83,6 +83,7 @@ class BatchController {
 		let transactionArgs = req.body
 		let transactionName
 		let newOwner
+		
 		try {
 			if (orgMspId === 'Org3MSP') {
 				transactionName = 'sellBox'
@@ -107,13 +108,14 @@ class BatchController {
 			} else {
 				throw new Error('Invalid transaction')
 			}
-        
+			
+
 			// batchId, newData
 			await submitQueue.add(transactionName, {
 				transactionArgs,
 				mspId: orgMspId
 			})
-
+			console.log(transactionArgs)
 			res.status(200).json({ msg: 'Your transaction is being processed.' })
 		}
 		catch (err) {

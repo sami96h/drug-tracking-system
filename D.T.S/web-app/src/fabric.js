@@ -140,8 +140,8 @@ class Fabric {
 		network
 	) => {
 
-		const assetContract = network.getContract(config.chaincode1Name)
-		const drugsContract= network.getContract(config.chaincode2Name)
+		const assetContract = network.getContract(config.chaincodeName)
+		const drugsContract= network.getContract('drugs-contract')
 		const qsccContract = network.getContract('qscc')
 		return { drugsContract,assetContract, qsccContract }
 	}

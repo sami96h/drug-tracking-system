@@ -1,5 +1,5 @@
 {
-  "name": "web-app",
+  "name": "demo-application",
   "version": "1.0.0",
   "description": "",
   "main": "blockListener.js",
@@ -38,7 +38,7 @@
     "vscode": "^1.1.37"
   },
   "scripts": {
-    "dev": "./generateEnv.sh && npm run start:redis && nodemon --require dotenv/config src/index.js | pino-pretty",
+    "dev": "./startup.sh && nodemon --require dotenv/config src/index.js | pino-pretty",
     "start:redis": "docker run -p 6379:6379 --name fabric-sample-redis -d redis --maxmemory-policy noeviction --requirepass \"${REDIS_PASSWORD}\"",
     "lint": "eslint -c .eslintrc.js src/ --ext .js --fix"
   },

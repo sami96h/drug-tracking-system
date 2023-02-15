@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(compression())
 app.use(express.static(join(__dirname, '..', 'public')))
 
+// docker run --name some-mongo -p 27017:27017 -d mongo:latest
 
 // passport.use(fabricAPIKeyStrategy);
 passport.use(jwtStrategy)

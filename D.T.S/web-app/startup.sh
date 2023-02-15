@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 ../network/organizations/ccp-generate.sh
 
 ${AS_LOCAL_HOST:=true}
@@ -49,14 +50,12 @@ REDIS_PORT=6379
 
 
 ENV_END
- 
 if [ "${AS_LOCAL_HOST}" = "true" ]; then
 
 cat << LOCAL_HOST_END >> .env
 AS_LOCAL_HOST=true
 
 HLF_CONNECTION_PROFILE_ORG1=$(cat ${CONNECTION_PROFILE_FILE_ORG1} | jq -c .)
-
 HLF_CONNECTION_PROFILE_ORG2=$(cat ${CONNECTION_PROFILE_FILE_ORG2} | jq -c .)
 HLF_CONNECTION_PROFILE_ORG3=$(cat ${CONNECTION_PROFILE_FILE_ORG3} | jq -c .)
 
@@ -74,9 +73,10 @@ cat << WITH_HOSTNAME_END >> .env
 AS_LOCAL_HOST=false
 
 HLF_CONNECTION_PROFILE_ORG1=$(cat ${CONNECTION_PROFILE_FILE_ORG1} | jq -c '.peers["peer0.org1.example.com"].url = "grpcs://peer0.org1.example.com:7051" | .certificateAuthorities["ca.org1.example.com"].url = "https://ca.org1.example.com:7054"')
-
 HLF_CONNECTION_PROFILE_ORG2=$(cat ${CONNECTION_PROFILE_FILE_ORG2} | jq -c '.peers["peer0.org2.example.com"].url = "grpcs://peer0.org2.example.com:9051" | .certificateAuthorities["ca.org2.example.com"].url = "https://ca.org2.example.com:8054"')
 HLF_CONNECTION_PROFILE_ORG3=$(cat ${CONNECTION_PROFILE_FILE_ORG3} | jq -c '.peers["peer0.org3.example.com"].url = "grpcs://peer0.org3.example.com:11051" | .certificateAuthorities["ca.org3.example.com"].url = "https://ca.org3.example.com:11054"')
+
+
 
 
 REDIS_HOST=redis
@@ -84,3 +84,15 @@ REDIS_HOST=redis
 WITH_HOSTNAME_END
 
 fi
+
+
+
+# kill the containers if they are running
+
+docker rm -f $(docker ps -aq --filter name='redis') || true
+docker rm -f $(docker ps -aq --filter name='mongodb') || true
+
+# run the containers
+
+docker run --name mongodb -p 27017:27017 -d mongo:latest
+docker run -p 6379:6379 --name fabric-sample-redis -d redis --maxmemory-policy noeviction 

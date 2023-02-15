@@ -8,8 +8,6 @@ const addTransaction = require('./db/queries/addTransaction')
 const connection = {
 	port: config.redisPort,
 	host: config.redisHost,
-	username: config.redisUsername,
-	password: config.redisPassword,
 }
 
 module.exports.initJobQueue = () => {

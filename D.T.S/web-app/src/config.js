@@ -141,15 +141,9 @@ const channelName = env
 /**
  * Name used to install the basic asset sample
  */
-const chaincode1Name = env
-	.get('HLF_CHAINCODE_NAME')  // chaincode1Name chaincode2Name
-	.default('batches-contract')
-	.example('basic')
-	.asString()
-
-const chaincode2Name = env
+const chaincodeName = env
 	.get('HLF_CHAINCODE_NAME')
-	.default('drugs-contract')
+	.default('demo-contract')
 	.example('basic')
 	.asString()
 
@@ -294,7 +288,7 @@ module.exports = {
 	connectionProfileOrg1,
 	queryTimeout,
 	endorseTimeout,
-	  channelName, mspIdOrg1, asLocalhost
+	 chaincodeName, channelName, mspIdOrg1, asLocalhost
 	,
 	submitJobQueueScheduler, maxFailedSubmitJobs,
 	maxCompletedSubmitJobs, submitJobConcurrency, submitJobAttempts,
@@ -302,7 +296,7 @@ module.exports = {
 	,
 	submitJobBackoffType, port, logLevel, JOB_QUEUE_NAME,
 	ORG1,
-	chaincode1Name ,chaincode2Name,
+
 	secretKey,
 	mspIdOrg2, mspIdOrg3, connectionProfileOrg2, connectionProfileOrg3, certificateOrg2, certificateOrg3, privateKeyOrg2, privateKeyOrg3
 

@@ -21,18 +21,18 @@ class UserController {
 				fabric = new Fabric(Org === 'org1' ? config.mspIdOrg1 :Org==='org2'? config.mspIdOrg2:config.mspIdOrg3, req.app.locals)
 
 			} else {
-				console.log('******************', password, username, Org)
 				return res.status(401).json({ msg: 'Invalid Credintials' })
 			}
 
 			await fabric.authenticateUser(username, password)
 
 			await fabric.connect(username)
+			
 			const token = await generateToken(username, Org)
-
+			console.log('*/*/*/',token)
 			res
 				.status(200)
-				.cookie('token', token)
+				.cookie('token', token)  
 				.json({
 					statusCode: 200,
 					message: 'success',

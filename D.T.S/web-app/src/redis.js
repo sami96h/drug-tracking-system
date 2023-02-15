@@ -5,12 +5,9 @@ const config  = require( './config')
 const isMaxmemoryPolicyNoeviction = async () => {
 	let redis
 	
-	
 	const redisOptions = {
 		port: config.redisPort,
 		host: config.redisHost,
-		username: config.redisUsername,
-		password: config.redisPassword,
 	}
 
 	try {
