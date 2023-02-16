@@ -274,6 +274,8 @@ if [ "$MODE" == "up" ]; then
   createChannel
   infoln "deploying chaincode on channel 'mychannel'"
   deployCC
+  successln "Network started successfully"
+
 elif [ "$MODE" == "down" ]; then
   infoln "Stopping network"
   networkDown

@@ -1,0 +1,52 @@
+{
+  "name": "demo-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockListener.js",
+  "dependencies": {
+    "@types/vscode": "^1.74.0",
+    "bullmq": "^1.47.2",
+    "canvas": "^2.10.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "env-var": "^7.0.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "fabric-network": "~2.1.0",
+    "helmet": "^4.6.0",
+    "http-status-codes": "^2.1.4",
+    "ioredis": "^4.27.8",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.2",
+    "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-headerapikey": "^1.2.2",
+    "passport-jwt": "^4.0.1",
+    "pino": "^6.11.3",
+    "pino-http": "^5.5.0",
+    "pino-pretty": "^9.1.1",
+    "prettier": "^2.8.3",
+    "qrcode": "^1.5.1",
+    "source-map-support": "^0.5.19",
+    "validator": "^13.7.0",
+    "vscode": "^1.1.37"
+  },
+  "scripts": {
+    "dev": "./startup.sh && nodemon --require dotenv/config src/index.js | pino-pretty",
+    "start:redis": "docker run -p 6379:6379 --name fabric-sample-redis -d redis --maxmemory-policy noeviction --requirepass \"${REDIS_PASSWORD}\"",
+    "lint": "eslint -c .eslintrc.js src/ --ext .js --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-plugin-react": "^7.32.2"
+  }
+}
